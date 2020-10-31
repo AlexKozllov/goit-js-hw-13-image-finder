@@ -18,6 +18,14 @@ body {
   background: rgb(170, 170, 170);
 } */
 
+.search-form input {
+  width: 300px;
+  height: 40px;
+  display: block;
+  margin: 60px auto;
+  font-size: 30px;
+}
+
 li {
   list-style: none;
 }

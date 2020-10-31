@@ -7,24 +7,30 @@ import showHide from "./js/showHide.js"
 
 
 refs.searchForm.addEventListener("input", debounce(dataForFetch, 700))
-refs.loadMoreBtn.addEventListener('click', loadMore)
 
+console.dir(refs.loadMoreBtn);
 showHide.hideElement(refs.loadMoreBtn)
 
-// const scrol = document.fullscreenElement.scrollHeight
 function loadMore() {
     apiService.newSetPage()
     rendering();
-    console.dir(window);
-    // window.scrollTo(x-coord, y-coord)
-    window.scrollTo({
-        top: scrol,
-        // top: window.pageYOffset,
-        // left: 100,
-        behavior: 'smooth'
-      });
-
+    autoScroll();
 }
+
+function autoScroll(){
+    let scrollHeight=Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+            )-180;
+    setTimeout(()=>{
+        window.scrollTo({
+            top: scrollHeight,
+            behavior: 'smooth'
+          });
+    },10)
+}
+ 
 
 function dataForFetch(event) {
     apiService.query = event.target.value;
