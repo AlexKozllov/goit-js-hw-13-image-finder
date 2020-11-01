@@ -14,16 +14,37 @@ body {
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-/* body {
-  background: rgb(170, 170, 170);
-} */
-
-.search-form input {
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.search-form #search-form {
   width: 300px;
   height: 40px;
   display: block;
-  margin: 60px auto;
+  margin: 60px;
   font-size: 30px;
+}
+.search-form #infiniteScrolling {
+  width: 30px;
+  height: 30px;
+}
+.search-form {
+  display: flex;
+  justify-content: space-between;
+}
+.checkboxText {
+  font-size: 30px;
+  height: 45px;
+}
+.checkBox {
+  width: 267px;
+  height: 50px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 li {
@@ -51,11 +72,15 @@ li {
   display: block;
   width: 600px;
   height: 60px;
-  margin: 60px auto;
-
-  /* background: rgb(49, 161, 15); */
+  margin: 0 auto;
+  font-size: 30px;
 }
 
 .is-hidden {
   display: none;
+}
+
+.notificationFont {
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
+  font-weight: 700;
 }

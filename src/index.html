@@ -12,18 +12,31 @@
   </head>
 
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="query"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-    </form>
+    <div class="container">
+      <form class="search-form">
+        <input
+          id="search-form"
+          type="text"
+          name="query"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <div class="checkBox">
+          <input
+            type="checkbox"
+            name="infiniteScrolling"
+            id="infiniteScrolling"
+          />
+          <label class="checkboxText" for="infiniteScrolling">
+            Infinite Scrolling</label
+          >
+        </div>
+      </form>
 
-    <ul class="gallery">
-      <!-- Список <li> с карточками изображений -->
-    </ul>
-    <button class="myBtn" id="loadMoreBtn">Load More</button>
+      <ul class="gallery">
+        <!-- Список <li> с карточками изображений -->
+      </ul>
+      <button class="myBtn" id="loadMoreBtn">Load More</button>
+    </div>
   </body>
 </html>
