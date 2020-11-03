@@ -44,17 +44,19 @@ function onSearchForm(event) {
         return
     }
     rendering();
-    showHide.showElement(refs.loadMoreBtn)
+    // showHide.showElement(refs.loadMoreBtn)
     refs.gallery.addEventListener('click', opoenPhotoCard)
     }
 
 
 // Отрисовка полученый данных
 function rendering() {
+    showHide.hideElement(refs.loadMoreBtn);
     apiService.getData().then((data) => {
         refs.gallery.insertAdjacentHTML('beforeend', template(data));
         if (data.length === 0) notification()
         if (refs.gallery.childElementCount > 12 & data.length !== 0) autoScroll();
+        if (refs.gallery.childElementCount >= 12) showHide.showElement(refs.loadMoreBtn)
         if (data.length < 12) showHide.hideElement(refs.loadMoreBtn);
     }).catch((err) => {
         notification()
@@ -72,17 +74,19 @@ function clearWindow() {
 refs.checkBox.addEventListener("change", onCheckBox)
 function onCheckBox(e) {
     if (e.target.checked) {
-        window.addEventListener('scroll', debounce(infiniteScrolling,200) ) 
+        window.addEventListener('scroll', infiniteScrolling) 
     }
     if (!e.target.checked) {
-        window.removeEventListener('scroll', debounce(infiniteScrolling,200))
+        window.removeEventListener('scroll', infiniteScrolling)
    }
 }
 
-function infiniteScrolling() {
+const infiniteScrolling= debounce(function () {
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement
         if (clientHeight + scrollTop >= scrollHeight - 5) loadMore()
-    }
+}, 500)
+    
+
 // //////////////////////////////////////////////////////////////////////////
 
 
