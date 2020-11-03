@@ -44,7 +44,6 @@ function onSearchForm(event) {
         return
     }
     rendering();
-    // showHide.showElement(refs.loadMoreBtn)
     refs.gallery.addEventListener('click', opoenPhotoCard)
     }
 
