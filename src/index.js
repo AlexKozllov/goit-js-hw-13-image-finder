@@ -18,7 +18,6 @@ showHide.hideElement(refs.loadMoreBtn)
 function loadMore() {
     apiService.newSetPage()
     rendering();
-    autoScroll();  
 }
 
 function autoScroll(){
@@ -26,22 +25,24 @@ function autoScroll(){
             document.body.scrollHeight, document.documentElement.scrollHeight,
             document.body.offsetHeight, document.documentElement.offsetHeight,
             document.body.clientHeight, document.documentElement.clientHeight
-            )-document.documentElement.clientHeight;
-    setTimeout(()=>{
-        window.scrollTo({
+    ) - document.documentElement.clientHeight;
+       setTimeout(()=>{
+         window.scrollTo({
             top: scrollHeight,
             behavior: 'smooth'
           });
-    },100)
+    },300)
 }
 
 function onSearchForm(event) {
+    clearWindow()
     apiService.query = event.target.value;
+    apiService.resetPage()
     if (event.target.value === '') {
         showHide.hideElement(refs.loadMoreBtn)
-        apiService.resetPage()
         return
     }
+    
     rendering();
     showHide.showElement(refs.loadMoreBtn)
     refs.gallery.addEventListener('click', opoenPhotoCard)
@@ -52,9 +53,18 @@ function onSearchForm(event) {
 function rendering() {
     apiService.getData().then((data) => {
         refs.gallery.insertAdjacentHTML('beforeend', template(data));
-        if (refs.gallery.childElementCount > 12 & data !== 0) autoScroll()
-        if (data === 0) notification()
-    }).catch((err) => { notification() })
+        if (refs.gallery.childElementCount > 12 & data.length !== 0)  autoScroll()
+        if (data.length === 0) notification()
+        if (data.length < 12) showHide.hideElement(refs.loadMoreBtn)
+    }).catch((err) => {
+        notification()
+    })
+}
+// //////////////////////////////////////////////////////////////////////
+
+// Очистка окна результатов поиска
+function clearWindow() {
+    refs.gallery.innerHTML=''
 }
 // ////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +82,7 @@ function onCheckBox(e) {
 function infiniteScrolling() {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement
         if (clientHeight + scrollTop >= scrollHeight - 20) {
-             loadMore()
+            loadMore()
         }
 }
 // //////////////////////////////////////////////////////////////////////////

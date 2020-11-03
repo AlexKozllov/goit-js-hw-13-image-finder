@@ -12,7 +12,8 @@ export default {
           const data = await response.json();
           if (data.total === 0) {
               return data.total
-          }
+            }
+            
           return data.hits  
         } catch (err) {
             throw err
