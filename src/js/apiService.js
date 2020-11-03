@@ -7,13 +7,12 @@ export default {
     
     async getData() {
         try {
-            let url = `${this.baseUrl}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&key=${this.key}`;
+             let url = `${this.baseUrl}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&key=${this.key}`;
           const response = await fetch(url);
           const data = await response.json();
           if (data.total === 0) {
               return data.total
             }
-            
           return data.hits  
         } catch (err) {
             throw err
@@ -24,7 +23,6 @@ export default {
         this.page += 1;
         return `${this.baseUrl}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&key=${this.key}`
     },
-
         resetPage() {
         return this.page = 1;
     },

@@ -34,6 +34,7 @@ function autoScroll(){
     },300)
 }
 
+
 function onSearchForm(event) {
     clearWindow()
     apiService.query = event.target.value;
@@ -42,7 +43,6 @@ function onSearchForm(event) {
         showHide.hideElement(refs.loadMoreBtn)
         return
     }
-    
     rendering();
     showHide.showElement(refs.loadMoreBtn)
     refs.gallery.addEventListener('click', opoenPhotoCard)
@@ -53,9 +53,9 @@ function onSearchForm(event) {
 function rendering() {
     apiService.getData().then((data) => {
         refs.gallery.insertAdjacentHTML('beforeend', template(data));
-        if (refs.gallery.childElementCount > 12 & data.length !== 0)  autoScroll()
         if (data.length === 0) notification()
-        if (data.length < 12) showHide.hideElement(refs.loadMoreBtn)
+        if (refs.gallery.childElementCount > 12 & data.length !== 0) autoScroll();
+        if (data.length < 12) showHide.hideElement(refs.loadMoreBtn);
     }).catch((err) => {
         notification()
     })
@@ -69,22 +69,20 @@ function clearWindow() {
 // ////////////////////////////////////////////////////////////////////////
 
 // Загрузка при прокрутке
-refs.checkBox.addEventListener("change",onCheckBox)
+refs.checkBox.addEventListener("change", onCheckBox)
 function onCheckBox(e) {
     if (e.target.checked) {
-        window.addEventListener('scroll', infiniteScrolling) 
+        window.addEventListener('scroll', debounce(infiniteScrolling,200) ) 
     }
     if (!e.target.checked) {
-        window.removeEventListener('scroll', infiniteScrolling)
+        window.removeEventListener('scroll', debounce(infiniteScrolling,200))
    }
 }
 
 function infiniteScrolling() {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
-        if (clientHeight + scrollTop >= scrollHeight - 20) {
-            loadMore()
-        }
-}
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+        if (clientHeight + scrollTop >= scrollHeight - 5) loadMore()
+    }
 // //////////////////////////////////////////////////////////////////////////
 
 
